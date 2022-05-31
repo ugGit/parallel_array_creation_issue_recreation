@@ -44,7 +44,7 @@ int main(){
     printf("after)  nested_arrays[%d][1] = %d\n", i, nested_arrays[i][1].x);
   });
 
-  // verify adresses and access
+  // verify addresses and access
   printf("--------\n");
   printf("Pointed to addresses after reassignation outside the loop\n");
   printf("4a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[0][1]));

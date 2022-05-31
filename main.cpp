@@ -37,6 +37,7 @@ int main(){
     nested_arrays[i] = obj_collection;
     printf("3a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[0][1]));
   });
+
   // verify adresses and access
   printf("--------\n");
   printf("Pointed to addresses after reassignation outside the loop\n");

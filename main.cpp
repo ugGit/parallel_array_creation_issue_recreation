@@ -18,6 +18,7 @@ int main(){
 
   // set a placeholder to track the address where nested_arrays[x] is pointing to, this will be modified later
   nested_arrays[0] = new obj[N];
+  printf("Pointed to addresses after initialization outside the loop\n");
   printf("1a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[0][1]));
   printf("1b) &(nested_arrays[0][2] = %p\n", &(nested_arrays[0][2]));
 
@@ -31,12 +32,14 @@ int main(){
   // create in parallel arrays on the heap and store the corresponding pointer in the nested_array
   std::for_each_n(std::execution::par, counting_iterator(0), M, [=](unsigned int i){
     obj* obj_collection = new obj[N];
+    printf("Reassign the pointer within the parallel loop\n");
     printf("2a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[0][1]));
     nested_arrays[i] = obj_collection;
     printf("3a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[0][1]));
   });
   // verify adresses and access
   printf("--------\n");
+  printf("Pointed to addresses after reassignation outside the loop\n");
   printf("4a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[0][1]));
   printf("4b) &(nested_arrays[0][2] = %p\n", &(nested_arrays[0][2]));
   printf("--------\n");

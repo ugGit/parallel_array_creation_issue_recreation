@@ -27,15 +27,21 @@ int main(){
   printf("before) nested_arrays[0][1] = %d\n", nested_arrays[0][1].x);
   nested_arrays[0][1].x = 99;
   printf("after)  nested_arrays[0][1] = %d\n", nested_arrays[0][1].x);
-  printf("--------\n");
 
   // create in parallel arrays on the heap and store the corresponding pointer in the nested_array
   std::for_each_n(std::execution::par, counting_iterator(0), M, [=](unsigned int i){
     obj* obj_collection = new obj[N];
+    printf("--------\n");
     printf("Reassign the pointer within the parallel loop\n");
-    printf("2a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[0][1]));
+    printf("2a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[i][1]));
     nested_arrays[i] = obj_collection;
-    printf("3a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[0][1]));
+    printf("3a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[i][1]));
+
+    printf("--------\n");
+    printf("Intermediate value acces verification: \n");
+    printf("before) nested_arrays[%d][1] = %d\n", i, nested_arrays[i][1].x);
+    nested_arrays[i][1].x = 77;
+    printf("after)  nested_arrays[%d][1] = %d\n", i, nested_arrays[i][1].x);
   });
 
   // verify adresses and access
@@ -43,10 +49,11 @@ int main(){
   printf("Pointed to addresses after reassignation outside the loop\n");
   printf("4a) &(nested_arrays[0][1] = %p\n", &(nested_arrays[0][1]));
   printf("4b) &(nested_arrays[0][2] = %p\n", &(nested_arrays[0][2]));
+
   printf("--------\n");
   printf("Final value acces verification: \n");
   printf("before) nested_arrays[0][1] = %d\n", nested_arrays[0][1].x);
-  nested_arrays[0][1].x = 66;
+  nested_arrays[0][1].x = 55;
   printf("after)  nested_arrays[0][1] = %d\n", nested_arrays[0][1].x);
 
   return 0;

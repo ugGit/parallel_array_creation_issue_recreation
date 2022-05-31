@@ -1,8 +1,8 @@
-#include "CountingIterator.h"
-
 #include <stdio.h>
 #include <algorithm>
 #include <execution>
+#include "CountingIterator.h"
+
 
 constexpr int N = 10;
 constexpr int M = 1;
